@@ -21,8 +21,8 @@ defmodule Pokemon.FetchShakespeareanDescriptionTest do
     end
 
     test "when Pokemon name is not just letters returns a 404 error" do
-      assert {:ok, value} = FetchShakespeareanDescription.call(6)
-      assert value == "Charizard flies 'round the sky in search of powerful opponents."
+      assert {:error, message} = FetchShakespeareanDescription.call(6)
+      assert message == :not_found
     end
 
     test "when Pokemon name is blank returns a 404 error" do

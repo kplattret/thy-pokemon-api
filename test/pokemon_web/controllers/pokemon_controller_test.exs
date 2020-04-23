@@ -24,6 +24,11 @@ defmodule PokemonWeb.PokemonControllerTest do
       assert %{"errors" => %{"detail" => "Not Found"}} = json_response(conn, 404)
     end
 
+    test "when input is not just letters renders 404 error", %{conn: conn} do
+      conn = get(conn, Routes.pokemon_path(conn, :show, "6"))
+      assert %{"errors" => %{"detail" => "Not Found"}} = json_response(conn, 404)
+    end
+
     test "when input is blank renders 404 error", %{conn: conn} do
       assert_raise Phoenix.Router.NoRouteError,
         "no route found for GET /pokemon (PokemonWeb.Router)", fn ->
