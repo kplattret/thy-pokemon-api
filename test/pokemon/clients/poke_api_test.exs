@@ -1,51 +1,12 @@
 defmodule Pokemon.PokeApiTest do
   use ExUnit.Case, async: true
 
-  import Tesla.Mock
+  import Pokemon.Mocks
   alias Pokemon.PokeApi
 
   describe "description/1" do
     setup do
-      mock(fn
-        %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/charizard"} ->
-          json(%{
-            "id" => 6,
-            "name" => "charizard",
-            "flavor_text_entries" => [
-              %{
-                "flavor_text" => "Dracaufeu parcourt les cieux\npour trouver des adversaires.",
-                "language" => %{"name" => "fr"}
-              },
-              %{
-                "flavor_text" => "Charizard flies around the sky\nin search of powerful opponents.",
-                "language" => %{"name" => "en"}
-              }
-            ]
-          }, status: 200)
-
-        %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/6"} ->
-          json(%{
-            "id" => 6,
-            "name" => "charizard",
-            "flavor_text_entries" => [
-              %{
-                "flavor_text" => "Dracaufeu parcourt les cieux\npour trouver des adversaires.",
-                "language" => %{"name" => "fr"}
-              },
-              %{
-                "flavor_text" => "Charizard flies around the sky\nin search of powerful opponents.",
-                "language" => %{"name" => "en"}
-              }
-            ]
-          }, status: 200)
-
-        %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/Charizard"} ->
-          text("Not Found", status: 404)
-
-        %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/"} ->
-          json(%{"count" => 807}, status: 200)
-      end)
-
+      mocks_for_external_apis()
       :ok
     end
 

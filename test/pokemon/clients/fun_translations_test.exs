@@ -1,44 +1,12 @@
 defmodule Pokemon.FunTranslationsTest do
   use ExUnit.Case, async: true
 
-  import Tesla.Mock
+  import Pokemon.Mocks
   alias Pokemon.FunTranslations
 
   describe "shakespeare/1" do
     setup do
-      mock(fn
-        %{method: :post, url: "https://api.funtranslations.com/translate/shakespeare.json",
-        body: "{\"text\":\"Your Pokemon API.\"}"} ->
-          json( %{
-            "contents" => %{
-              "text" => "Your Pokemon API.",
-              "translated" => "Thy pokemon api.",
-              "translation" => "shakespeare"
-            },
-            "success" => %{"total" => 1}
-          }, status: 200)
-
-        %{method: :post, url: "https://api.funtranslations.com/translate/shakespeare.json",
-        body: "{\"text\":\"\"}"} ->
-          json(%{
-            "contents" => %{
-              "text" => "",
-              "translated" => "",
-              "translation" => "shakespeare"
-            },
-            "success" => %{"total" => 1}
-          }, status: 200)
-
-        %{method: :post, url: "https://api.funtranslations.com/translate/shakespeare.json",
-        body: "{\"text\":\"After so many requests...\"}"} ->
-          json(%{
-            "error" => %{
-              "code" => 429,
-              "message" => "Too Many Requests: Rate limit of 5 requests per hour exceeded."
-            }
-          }, status: 429)
-      end)
-
+      mocks_for_external_apis()
       :ok
     end
 
