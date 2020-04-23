@@ -22,6 +22,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Use Tesla for HTTP requests, with the recommended Hackney adapter
+config :tesla, adapter: Tesla.Adapter.Hackney
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

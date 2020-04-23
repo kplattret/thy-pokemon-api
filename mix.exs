@@ -35,7 +35,9 @@ defmodule Pokemon.MixProject do
       {:phoenix, "~> 1.4.12"},
       {:phoenix_pubsub, "~> 1.1"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:tesla, "~> 1.3.0"},
+      {:hackney, "~> 1.15.2"}
     ]
   end
 end

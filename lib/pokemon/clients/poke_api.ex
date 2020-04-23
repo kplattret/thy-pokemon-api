@@ -1,0 +1,38 @@
+defmodule Pokemon.PokeApi do
+  use Tesla
+
+  plug Tesla.Middleware.BaseUrl, "https://pokeapi.co/api/v2"
+  plug Tesla.Middleware.JSON
+
+  def description(name) do
+    get("/pokemon-species/" <> to_string(name))
+    |> handle_response
+    |> extract_data
+  end
+
+  # private
+
+  defp extract_data({:error, _} = error), do: error
+  defp extract_data({:ok, body}) do
+    if Map.has_key?(body, "flavor_text_entries") do
+      english = &(&1["language"]["name"] == "en")
+      data = Enum.find(body["flavor_text_entries"], &english.(&1))
+      value = Map.fetch!(data, "flavor_text") |> String.replace("\n", " ")
+
+      {:ok, value}
+    else
+      {:error, :not_found}
+    end
+  end
+
+  defp handle_response({:error, _} = error), do: error
+  defp handle_response({:ok, response}) do
+    %Tesla.Env{status: status, body: body} = response
+
+    case status do
+      200 -> {:ok, body}
+      404 -> {:error, :not_found}
+      _ -> {:error, body}
+    end
+  end
+end

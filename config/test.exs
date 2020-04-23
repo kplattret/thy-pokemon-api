@@ -8,3 +8,6 @@ config :pokemon, PokemonWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Use Tesla's mock adapter for all HTTP clients
+config :tesla, adapter: Tesla.Mock
