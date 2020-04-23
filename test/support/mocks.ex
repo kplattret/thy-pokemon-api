@@ -38,6 +38,9 @@ defmodule Pokemon.Mocks do
       %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/Charizard"} ->
         text("Not Found", status: 404)
 
+      %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/Pikachu"} ->
+        text("Not Found", status: 404)
+
       %{method: :get, url: "https://pokeapi.co/api/v2/pokemon-species/"} ->
         json(%{"count" => 807}, status: 200)
 

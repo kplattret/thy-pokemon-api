@@ -5,7 +5,9 @@ defmodule PokemonWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", PokemonWeb do
+  scope "/", PokemonWeb do
     pipe_through :api
+
+    get "/pokemon/:name", PokemonController, :show
   end
 end
