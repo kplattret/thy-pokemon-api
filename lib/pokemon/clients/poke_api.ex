@@ -1,6 +1,8 @@
 defmodule Pokemon.PokeApi do
   use Tesla
 
+  import Pokemon.ClientHelper
+
   plug Tesla.Middleware.BaseUrl, "https://pokeapi.co/api/v2"
   plug Tesla.Middleware.JSON
 
@@ -22,17 +24,6 @@ defmodule Pokemon.PokeApi do
       {:ok, value}
     else
       {:error, :not_found}
-    end
-  end
-
-  defp handle_response({:error, _} = error), do: error
-  defp handle_response({:ok, response}) do
-    %Tesla.Env{status: status, body: body} = response
-
-    case status do
-      200 -> {:ok, body}
-      404 -> {:error, :not_found}
-      _ -> {:error, body}
     end
   end
 end

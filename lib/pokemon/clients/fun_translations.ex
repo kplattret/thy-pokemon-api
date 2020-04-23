@@ -1,6 +1,8 @@
 defmodule Pokemon.FunTranslations do
   use Tesla
 
+  import Pokemon.ClientHelper
+
   plug Tesla.Middleware.BaseUrl, "https://api.funtranslations.com"
   plug Tesla.Middleware.JSON
 
@@ -20,18 +22,6 @@ defmodule Pokemon.FunTranslations do
       {:ok, value}
     else
       {:error, :internal_server_error}
-    end
-  end
-
-  defp handle_response({:error, _} = error), do: error
-  defp handle_response({:ok, response}) do
-    %Tesla.Env{status: status, body: body} = response
-
-    case status do
-      200 -> {:ok, body}
-      404 -> {:error, :not_found}
-      429 -> {:error, :too_many_requests}
-      _ -> {:error, body}
     end
   end
 end
