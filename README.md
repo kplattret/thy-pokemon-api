@@ -1,18 +1,23 @@
-# Pokemon
+# Thy Pokémon API
 
-To start your Phoenix server:
+Simple API to get a description of a given Pokemon species, in Shakespearean English. In order to
+achieve this, this application leverages the [PokéAPI](https://pokeapi.co) and the [Fun
+Translations](https://funtranslations.com/api/shakespeare) API in turn.
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server`
+Feel free to take a look at the [documentation](documentation.md).
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Installation and tests
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+This application can be built and served locally using `Docker` by using the following commands:
 
-## Learn more
+**Run the app:** 
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```shell
+$ docker-compose up
+```
+
+**Run the test suite:**
+
+```shell
+$ docker-compose run web mix test
+```
