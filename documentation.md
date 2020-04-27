@@ -25,10 +25,15 @@ All the error bodies will include the following JSON payload:
 
 All available endpoints.
 
-## Retrieve a Pokemon description [/pokemon/:name] [GET]
+## Pokemon description [/pokemon/:name]
 
-Given a `name` parameter which is an existing Pokemon name, this will return a description of their
-species in Shakespearean English.
+The description of a Pekemon species, in Shakespearean English.
+
++ Parameters
+
+  + name: "charizard" – A unique identifier of the Pokemon; their name in lowercase.
+
+## Retrieve a Pokemon description [GET]
 
 + Request
 
@@ -37,18 +42,10 @@ species in Shakespearean English.
     `Content-Type: application/json`
     `Accept: application/json`
 
-  + Body
-
-    ```json
-    {
-      "name": "charizard"
-    }
-    ```
-
 + Response 200 (application/json)
 
   + Headers
-  
+
     `Content-Type: application/json`
 
   + Body
